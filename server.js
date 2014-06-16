@@ -52,7 +52,7 @@ router.route('/delete')
 	 	// var db = req.db;
 	 	// var collection = db.get('employees');
 	 	var eid = req.body.empId;
-	 	req.db.get('employees').remove({id : eid}, function(err,message){
+	 	req.db.get('employees').remove({_id : eid}, function(err,message){
 	 		if(err) {
 	 			res.send(err);
 	 			console.log(err);
@@ -69,9 +69,10 @@ router.route('/save')
 	.post(function(req,res){
 		
 	 	var emp = req.body;
+	 	var empId = emp._id;
 	 	delete emp._id;
 	 	console.log("req emp" + JSON.stringify(emp) + "id" + emp.id);
-	 	req.db.get('employees').update({id : emp.id},{$set : emp}, function(err,message){
+	 	req.db.get('employees').update({_id :empId},{$set : emp}, function(err,message){
 	 		if(err) {
 	 			res.send(err);
 	 			console.log(err);
@@ -82,7 +83,22 @@ router.route('/save')
 	 		}
 	 	});
 	});
-
+router.route('/add')
+	.post(function(req,res){
+		
+	 	var emp = req.body;
+	 	console.log("add emp" + JSON.stringify(emp));
+	 	req.db.get('employees').insert(emp, function(err,message){
+	 		if(err) {
+	 			res.send(err);
+	 			console.log(err);
+	 		}
+	 		else {
+	 			res.send("Success");
+	 			console.log("success");
+	 		}
+	 	});
+	});
 router.get('/', function(req,res){
 	res.json({message : 'Welcome'});
 });
