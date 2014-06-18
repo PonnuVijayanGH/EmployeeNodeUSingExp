@@ -11,5 +11,6 @@ Create collection "employees"<br/>
 ***************<br/>
 git clone EmployeeNodeUsingExp<br/>
 In command prompt, go to the cloned repo<br/>
+npm install <br/>
 node server.js<br/>
 Access the app @ localhost:8080
